@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>System Breach</title>
+<title>System Terminal</title>
 <style>
 body {
   background-color: black;
   color: lime;
   font-family: monospace;
-  text-align: center;
-  padding-top: 100px;
+  padding: 20px;
 }
-.blink {
+#terminal {
+  white-space: pre-line;
+}
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: lime;
   animation: blink 1s infinite;
 }
 @keyframes blink {
@@ -20,24 +25,45 @@ body {
 </head>
 <body>
 
-<h1>⚠ SYSTEM BREACH DETECTED ⚠</h1>
-<p id="loading">Accessing device data...</p>
+<div id="terminal"></div><span class="cursor"></span>
 
 <script>
-setTimeout(() => {
-  document.getElementById("loading").innerHTML =
-  "Downloading photos...";
-}, 2000);
+const lines = [
+  "Initializing secure connection...",
+  "Bypassing firewall...",
+  "Accessing device storage...",
+  "Extracting photos...",
+  "Uploading contacts to server...",
+  "Injecting malware...",
+  "",
+  "⚠ SYSTEM FULLY COMPROMISED ⚠",
+  "",
+  "YOUR PHONE GOT HACKED!",
+  "HELLO ITS SKINNY LITTLE.",
+  "SEE YOU ON DARK WEB"
+];
 
-setTimeout(() => {
-  document.getElementById("loading").innerHTML =
-  "Uploading contacts to dark web...";
-}, 4000);
+let lineIndex = 0;
+let charIndex = 0;
+const speed = 40;
+const terminal = document.getElementById("terminal");
 
-setTimeout(() => {
-  document.body.innerHTML =
-  "<h1> YOU GOT HACKED </h1><h2> LITTLE SKINNY!</h2><p> SEE YOU ON DARK WEB 🔥</p>";
-}, 7000);
+function typeLine() {
+  if (lineIndex < lines.length) {
+    if (charIndex < lines[lineIndex].length) {
+      terminal.innerHTML += lines[lineIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(typeLine, speed);
+    } else {
+      terminal.innerHTML += "\n";
+      charIndex = 0;
+      lineIndex++;
+      setTimeout(typeLine, 500);
+    }
+  }
+}
+
+typeLine();
 </script>
 
 </body>

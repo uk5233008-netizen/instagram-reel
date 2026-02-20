@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>System Terminal</title>
+<title>iOS Security Terminal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
   background-color: black;
   color: lime;
   font-family: monospace;
-  padding: 20px;
+  padding: 15px;
+  overflow: hidden;
 }
 #terminal {
   white-space: pre-line;
@@ -15,11 +17,25 @@ body {
 .cursor {
   display: inline-block;
   width: 10px;
-  background-color: lime;
+  background: lime;
   animation: blink 1s infinite;
 }
 @keyframes blink {
   50% { opacity: 0; }
+}
+.lockScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
 }
 </style>
 </head>
@@ -29,23 +45,17 @@ body {
 
 <script>
 const lines = [
-  "Initializing secure connection...",
-  "Bypassing firewall...",
-  "Accessing device storage...",
-  "Extracting photos...",
-  "Uploading contacts to server...",
-  "Injecting malware...",
+  "Connecting to iOS kernel...",
+  "Bypassing Face ID...",
+  "Accessing photo library...",
+  "Uploading contacts...",
   "",
-  "⚠ SYSTEM FULLY COMPROMISED ⚠",
-  "",
-  "YOUR PHONE GOT HACKED!",
-  "HELLO ITS SKINNY LITTLE.",
-  "SEE YOU ON DARK WEB"
+  "⚠ DEVICE LOCKED ⚠"
 ];
 
 let lineIndex = 0;
 let charIndex = 0;
-const speed = 40;
+const speed = 35;
 const terminal = document.getElementById("terminal");
 
 function typeLine() {
@@ -58,9 +68,40 @@ function typeLine() {
       terminal.innerHTML += "\n";
       charIndex = 0;
       lineIndex++;
-      setTimeout(typeLine, 500);
+      setTimeout(typeLine, 600);
     }
+  } else {
+    fakeLock();
   }
+}
+
+function fakeLock() {
+  document.body.innerHTML = `
+  <div class="lockScreen">
+    <h1>⚠ SYSTEM LOCKED ⚠</h1>
+    <p>Do NOT close this page</p>
+    <p id="countdown">Time Remaining: 120s</p>
+  </div>
+  `;
+
+  let timeLeft = 120;
+  const countdown = document.getElementById("countdown");
+
+  const timer = setInterval(() => {
+    timeLeft--;
+    countdown.innerText = "Time Remaining: " + timeLeft + "s";
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      document.body.innerHTML = `
+      <div class="lockScreen" style="color:lime;">
+        <h1> I GOT YOU DUDE </h1>
+        <p>YOU GOT HACKED !</p>
+        <p> HELLO BUDDY ITS LITTLE SKINNY! </p>
+      </div>
+      `;
+    }
+  }, 1000);
 }
 
 typeLine();

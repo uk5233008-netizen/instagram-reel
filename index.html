@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>System Breach</title>
+<style>
+body {
+  background-color: black;
+  color: lime;
+  font-family: monospace;
+  text-align: center;
+  padding-top: 100px;
+}
+.blink {
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<h1>⚠ SYSTEM BREACH DETECTED ⚠</h1>
+<p id="loading">Accessing device data...</p>
+
+<script>
+setTimeout(() => {
+  document.getElementById("loading").innerHTML =
+  "Downloading photos...";
+}, 2000);
+
+setTimeout(() => {
+  document.getElementById("loading").innerHTML =
+  "Uploading contacts to dark web...";
+}, 4000);
+
+setTimeout(() => {
+  document.body.innerHTML =
+  "<h1> YOU GOT HACKED </h1><h2> LITTLE SKINNY!</h2><p> SEE YOU ON DARK WEB 🔥</p>";
+}, 7000);
+</script>
+
+</body>
+</html>
